@@ -1,0 +1,5 @@
+{
+  "name": "Folo RSS Reader",
+  "description": "A modern, minimalist RSS reader with AI-powered summarization using Gemini Flash.",
+  "requestFramePermissions": []
+}
