@@ -35,7 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       setNewUrl('');
       setIsAdding(false);
     } catch (err) {
-      alert("Failed to add feed. Please check the URL.");
+      alert("Failed to add feed. The URL may be invalid, or the feed server is unreachable (timeout).");
     } finally {
       setIsLoading(false);
     }
@@ -74,8 +74,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="p-4 bg-gray-50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-800 animate-in slide-in-from-top-2">
           <form onSubmit={handleSubmit}>
             <input
-              type="url"
-              placeholder="https://site.com/rss"
+              type="text"
+              placeholder="https://... or rsshub://..."
               className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-900 text-gray-900 dark:text-gray-100"
               value={newUrl}
               onChange={(e) => setNewUrl(e.target.value)}
@@ -85,9 +85,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex justify-end mt-2 space-x-2">
               <button
                 type="button"
-                onClick={() => setIsAdding(false)}
+                onClick={() => {
+                  setIsAdding(false);
+                  setIsLoading(false);
+                }}
                 className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-                disabled={isLoading}
+                // Allow canceling even if loading, so user isn't stuck
               >
                 Cancel
               </button>
